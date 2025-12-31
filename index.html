@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>毛泽东选集 - 下载页面</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Microsoft YaHei", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .meta {
+            color: #7f8c8d;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .description {
+            background: #f9f9f9;
+            padding: 20px;
+            border-left: 4px solid #3498db;
+            margin-bottom: 30px;
+            border-radius: 5px;
+        }
+        
+        .download-section {
+            background: #e8f4fc;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .download-btn {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            margin: 10px;
+            transition: background 0.3s;
+            cursor: pointer;
+        }
+        
+        .download-btn:hover {
+            background: #2980b9;
+        }
+        
+        .disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+        }
+        
+        .qr-section {
+            background: #fffae6;
+            border: 1px dashed #f39c12;
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .qr-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .qr-code {
+            text-align: center;
+        }
+        
+        .qr-code img {
+            width: 150px;
+            height: 150px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            background: white;
+        }
+        
+        .qr-code p {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .steps {
+            background: #f0f8ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .step-num {
+            background: #3498db;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            animation: fadeIn 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .modal h3 {
+            color: #e74c3c;
+            margin-bottom: 15px;
+        }
+        
+        .close-modal {
+            margin-top: 20px;
+            background: #95a5a6;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .nav-btn {
+            color: #3498db;
+            text-decoration: none;
+            padding: 8px 15px;
+            border: 1px solid #3498db;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .nav-btn:hover {
+            background: #3498db;
+            color: white;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .qr-container {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>毛泽东选集</h1>
+            <div class="meta">
+                日期: 2020-11-09 00:14:57 &nbsp;&nbsp; 作者: --- &nbsp;&nbsp; 关键词: 文化电子书
+            </div>
+        </div>
+        
+        <div class="description">
+            <p><strong>作品导读：</strong>专业人士。...</p>
+        </div>
+        
+        <div class="download-section">
+            <h2>下载资源</h2>
+            <p style="margin-bottom: 15px; color: #555;">点击下方按钮下载《毛泽东选集》</p>
+            
+            <a href="javascript:void(0)" class="download-btn" id="downloadBtn">本地下载</a>
+            <a href="javascript:void(0)" class="download-btn">书友上传地址</a>
+            
+            <p style="margin-top: 15px; font-size: 14px; color: #e74c3c;">
+                若下载遇到问题，请查看下方提示
+            </p>
+        </div>
+        
+        <div class="qr-section">
+            <h3>📱 获取完整资源指引</h3>
+            <p style="margin: 15px 0; color: #666;">
+                若本书不能直接下载，或下载后需要解压密码，请按以下步骤操作：
+            </p>
+            
+            <div class="qr-container">
+                <div class="qr-code">
+                    <div style="width: 150px; height: 150px; background: #f5f5f5; display: flex; align-items: center; justify-content: center; margin: 0 auto; border: 1px solid #ddd;">
+                        <div style="text-align: center; padding: 10px;">
+                            <div style="font-size: 40px;">📚</div>
+                            <div style="font-size: 12px; margin-top: 5px;">毛泽东选集</div>
+                        </div>
+                    </div>
+                    <p>扫码关注公众号「静光小筑笔记」</p>
+                </div>
+                
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-num">1</div>
+                        <div>微信搜索公众号，关注「静光小筑笔记」公众号</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">2</div>
+                        <div>在公众号对话框回复关键词：<strong style="color: #e74c3c;">解压密码</strong></div>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">3</div>
+                        <div>系统将自动发送解压密码，使用该密码解压文件</div>
+                    </div>
+                </div>
+            </div>
+            
+            <p style="margin-top: 15px; font-size: 14px; color: #666;">
+                🔒 解压密码每24小时更新一次，确保关注公众号后获取最新密码
+            </p>
+        </div>
+        
+        <div class="navigation">
+            <a href="#" class="nav-btn">上一本：读库2003</a>
+            <a href="#" class="nav-btn">下一本：大国大民</a>
+        </div>
+        
+        <footer>
+            <p>作品提示：作品行文流畅，内容丰富，读完使人受益匪浅。</p>
+            <p style="margin-top: 5px;">若您喜欢本书，在阅读电子书的同时，记得购买纸质图书，以示对作者的支持。</p>
+        </footer>
+    </div>
+    
+    <!-- 下载提示弹窗 -->
+    <div class="modal" id="downloadModal">
+        <div class="modal-content">
+            <h3>⚠️ 下载提示</h3>
+            <p>本书资源需要通过公众号获取解压密码。</p>
+            <p style="margin: 15px 0;">请先关注「静光小筑笔记」公众号，回复<strong style="color: #e74c3c;">"解压密码"</strong>获取密码。</p>
+            <p>下载链接：<a href="毛泽东选集.zip" id="realDownloadLink" style="color: #3498db;">毛泽东选集.zip</a> (文件已加密)</p>
+            <button class="close-modal" id="closeModal">我知道了</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const downloadBtn = document.getElementById('downloadBtn');
+            const downloadModal = document.getElementById('downloadModal');
+            const closeModal = document.getElementById('closeModal');
+            const realDownloadLink = document.getElementById('realDownloadLink');
+            
+            // 模拟下载链接（实际应链接到加密的ZIP文件）
+            realDownloadLink.href = "毛泽东选集.zip"; // 这里放实际加密文件的URL
+            
+            // 点击下载按钮显示弹窗
+            downloadBtn.addEventListener('click', function() {
+                downloadModal.style.display = 'flex';
+            });
+            
+            // 关闭弹窗
+            closeModal.addEventListener('click', function() {
+                downloadModal.style.display = 'none';
+            });
+            
+            // 点击弹窗外部关闭
+            downloadModal.addEventListener('click', function(e) {
+                if (e.target === downloadModal) {
+                    downloadModal.style.display = 'none';
+                }
+            });
+            
+            // 可选：自动下载但显示提示（用户体验更好）
+            const otherDownloadBtn = document.querySelectorAll('.download-btn')[1];
+            otherDownloadBtn.addEventListener('click', function() {
+                downloadModal.style.display = 'flex';
+            });
+            
+            // 模拟下载计数器（可选功能）
+            let downloadAttempts = 0;
+            downloadBtn.addEventListener('click', function() {
+                downloadAttempts++;
+                if (downloadAttempts > 2) {
+                    // 多次尝试后显示更强烈提示
+                    const modalTitle = document.querySelector('.modal h3');
+                    const modalText = document.querySelector('.modal p');
+                    if (modalTitle && modalText) {
+                        modalTitle.innerHTML = "🔒 需要关注公众号获取密码";
+                        modalText.innerHTML = "您已多次尝试下载，请务必先关注公众号获取解压密码！";
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
